@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import GifList from './components/giflist.component'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import giphy from 'giphy-api';
+
+class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      ids: []
+    } 
+  }
+
+
+  componentDidMount() {
+    giphy('KI1wl2DyhOo41x2tscGMTti9cT1HeaeB').search({
+      q: 'pokemon',
+      rating: 'g',
+      limit: 10
+    })
+    .then(res => {
+      console.log(res);
+      this.setState({ ids: res.data });
+      console.log(this.state);
+    });
+  }
+
+  render() {
+    const { ids } = this.state;
+    return(
+      <div className="app">
+        <div className="left-scene">
+          <input className="form-search" />
+          <div className="selected-gif">
+            THE SELECTED GIF HERE
+          </div>
+        </div>
+
+        <div className="right-scene">
+          <GifList ids={ids} />
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;
