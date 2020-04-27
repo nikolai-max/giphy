@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "giphy-api": "^2.0.1",
     "react": "^16.13.1",
+    "react-debounce-input": "^3.2.2",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
