@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import GifList from './components/giflist.component'
-import {DebounceInput} from 'react-debounce-input';
+import Gif from './components/gif.component'
+import Search from './components/search.component'
 
 import giphy from 'giphy-api';
 
@@ -11,44 +12,34 @@ class App extends Component {
 
     this.state = {
       ids: [],
-      selectedUrl: 'https://media2.giphy.com/media/tOWyML1WPzKjm/200w.webp',
+      selectedId: 'tOWyML1WPzKjm',
     } 
   }
 
   onGifSelect = (id) => {
-    this.setState({ selectedUrl: id.target.src });
+    this.setState({ selectedId: id });
   }
 
-  onChange = (e) => {
+  onChange = (event) => {
+    const { value } = event.target
     giphy('KI1wl2DyhOo41x2tscGMTti9cT1HeaeB').search({
-      q: e.target.value,
+      q: {value},
       rating: 'g',
       limit: 10
     })
     .then(res => {
       this.setState({ ids: res.data.map(gif => gif.id)
       });
-      console.log(this.state.ids);
     });
   }
 
   render() {
     return(
-
-// Make the selected search work
-// 1. Make an on click function on the gi component
-// 2. Make another state that have the selected gif
-// 3. This click changes the state of the selected one
-
       <div className="app">
         <div className="left-scene">
-        <DebounceInput
-          className="form-search"
-          minLength={3}
-          debounceTimeout={300}
-          onChange={this.onChange} />
+        <Search onChange={this.onChange}></Search>
           <div className="selected-gif">
-            <img src={this.state.selectedUrl} alt="Gif from Giphy" className="gif" />
+            <Gif id={this.state.selectedId}></Gif>
           </div>
         </div>
 
