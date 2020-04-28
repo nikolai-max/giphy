@@ -11,14 +11,12 @@ class App extends Component {
 
     this.state = {
       ids: [],
-      selectedID: 'tOWyML1WPzKjm',
+      selectedUrl: 'https://media2.giphy.com/media/tOWyML1WPzKjm/200w.webp',
     } 
   }
 
   onGifSelect = (id) => {
-    console.log(this.id)
-    this.setState({ selectedID: id });
-    console.log(id.target)
+    this.setState({ selectedUrl: id.target.src });
   }
 
   onChange = (e) => {
@@ -50,7 +48,7 @@ class App extends Component {
           debounceTimeout={300}
           onChange={this.onChange} />
           <div className="selected-gif">
-            <img src={`https://media2.giphy.com/media/${this.state.selectedID}/200w.webp`} alt="Gif from Giphy" className="gif" />
+            <img src={this.state.selectedUrl} alt="Gif from Giphy" className="gif" />
           </div>
         </div>
 

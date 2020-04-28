@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 
 class GifList extends Component {
-    handleClick = (key) => {
+    handleClick = (id) => {
         const { onSelect } = this.props;
-        onSelect(key);
+        onSelect(id);
     }
 
     render() {
